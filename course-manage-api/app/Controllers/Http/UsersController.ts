@@ -3,6 +3,7 @@ import User from 'App/Models/User'
 import { findAll } from 'App/Services/commonMethod'
 import { DEFAULT_PAGE, DEFAULT_SIZE } from 'App/Utils/constants'
 import PaginationValidator from 'App/Validators/PaginationValidator'
+import UserCreateValidator from 'App/Validators/UserCreateValidator'
 
 export default class UsersController {
   public async index({ request, response }: HttpContextContract) {
@@ -13,7 +14,13 @@ export default class UsersController {
     response.ok({ total: users.total, results: users.all() })
   }
 
-  public async store({ request, response }: HttpContextContract) {}
+  public async store({ request, response }: HttpContextContract) {
+    const body = await request.validate(UserCreateValidator)
+
+    const user = await User.create(body)
+
+    response.ok(user)
+  }
 
   public async show({ request, response }: HttpContextContract) {}
 
