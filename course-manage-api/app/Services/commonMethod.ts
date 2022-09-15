@@ -7,3 +7,7 @@ export const findAll = async (
 ): Promise<ModelPaginatorContract<any>> => {
   return model.query().paginate(page, size)
 }
+
+export const modify = async (model: any, data: object) => {
+  await model.merge(data).save()
+}
