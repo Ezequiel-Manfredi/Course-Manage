@@ -19,7 +19,7 @@ export default class UsersController {
 
     const user = await User.create(body)
 
-    response.ok(user)
+    response.created(user)
   }
 
   public async show({ request, response }: HttpContextContract) {
