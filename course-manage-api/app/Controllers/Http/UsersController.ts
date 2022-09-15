@@ -1,7 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
 import { findAll, modify } from 'App/Services/commonMethod'
-import { DEFAULT_PAGE, DEFAULT_SIZE } from 'App/Utils/constants'
+import { DEFAULT_PAGE, DEFAULT_SIZE, DELETE_OBJECT } from 'App/Utils/constants'
 import PaginationValidator from 'App/Validators/PaginationValidator'
 import UserValidator from 'App/Validators/UserValidator'
 
@@ -40,5 +40,12 @@ export default class UsersController {
     response.ok(user)
   }
 
-  public async destroy({ request, response }: HttpContextContract) {}
+  public async destroy({ request, response }: HttpContextContract) {
+    const id: number = request.param('id')
+
+    const user = await User.findOrFail(id)
+    await modify(user, DELETE_OBJECT)
+
+    response.ok(user)
+  }
 }
