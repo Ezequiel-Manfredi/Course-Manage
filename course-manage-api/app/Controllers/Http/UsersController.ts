@@ -22,7 +22,13 @@ export default class UsersController {
     response.ok(user)
   }
 
-  public async show({ request, response }: HttpContextContract) {}
+  public async show({ request, response }: HttpContextContract) {
+    const id: number = request.param('id')
+
+    const user = await User.findOrFail(id)
+
+    response.ok(user)
+  }
 
   public async update({ request, response }: HttpContextContract) {}
 
