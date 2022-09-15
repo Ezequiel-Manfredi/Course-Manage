@@ -23,27 +23,27 @@ export default class UsersController {
   }
 
   public async show({ request, response }: HttpContextContract) {
-    const id: number = request.param('id')
+    const userId: number = request.param('userId')
 
-    const user = await User.findOrFail(id)
+    const user = await User.findOrFail(userId)
 
     response.ok(user)
   }
 
   public async update({ request, response }: HttpContextContract) {
-    const id: number = request.param('id')
+    const userId: number = request.param('userId')
     const body = await request.validate(UserValidator)
 
-    const user = await User.findOrFail(id)
+    const user = await User.findOrFail(userId)
     await modify(user, body)
 
     response.ok(user)
   }
 
   public async destroy({ request, response }: HttpContextContract) {
-    const id: number = request.param('id')
+    const userId: number = request.param('userId')
 
-    const user = await User.findOrFail(id)
+    const user = await User.findOrFail(userId)
     await modify(user, DELETE_OBJECT)
 
     response.ok(user)

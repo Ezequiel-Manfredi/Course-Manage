@@ -20,4 +20,7 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.resource('/users', 'UsersController').apiOnly()
+Route.resource('users', 'UsersController')
+  .apiOnly()
+  .paramFor('users', 'userId')
+  .where('userId', Route.matchers.number())
