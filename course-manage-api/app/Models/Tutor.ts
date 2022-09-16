@@ -25,6 +25,9 @@ export default class Tutor extends Person {
   })
   public children: ManyToMany<typeof Student>
 
+  @column()
+  public status: boolean
+
   @column.dateTime({ autoCreate: true, serializeAs: null })
   public createdAt: DateTime
 

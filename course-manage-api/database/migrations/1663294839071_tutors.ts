@@ -13,6 +13,7 @@ export default class extends BaseSchema {
       table.integer('dni')
       table.integer('cuil')
       table.string('address')
+      table.boolean('status').defaultTo(true)
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
