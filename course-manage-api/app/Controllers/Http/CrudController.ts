@@ -27,12 +27,13 @@ export default class CrudController {
     response.ok({ total: rows.total, results: rows.all() })
   }
 
-  public async store({ request, response }: HttpContextContract) {
+  public async store({ request, response }: HttpContextContract): Promise<any> {
     const body = await request.validate(this.validator)
 
     const row = await this.model.create(body)
 
     response.created(row)
+    return row
   }
 
   public async show({ request, response }: HttpContextContract) {
