@@ -19,7 +19,7 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
-import { PRECEPTOR_ID, USER_ID } from 'App/Utils/constants'
+import { PRECEPTOR_ID, STUDENT_ID, USER_ID } from 'App/Utils/constants'
 
 Route.resource('users', 'UsersController')
   .apiOnly()
@@ -30,3 +30,8 @@ Route.resource('preceptors', 'PreceptorsController')
   .apiOnly()
   .paramFor('preceptors', PRECEPTOR_ID)
   .where(PRECEPTOR_ID, Route.matchers.number())
+
+Route.resource('students', 'StudentsController')
+  .apiOnly()
+  .paramFor('students', STUDENT_ID)
+  .where(STUDENT_ID, Route.matchers.number())
