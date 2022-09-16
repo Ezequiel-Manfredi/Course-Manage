@@ -42,3 +42,5 @@ Route.resource('students.tutors', 'TutorsController')
   .paramFor('tutors', TUTOR_ID)
   .where(STUDENT_ID, Route.matchers.number())
   .where(TUTOR_ID, Route.matchers.number())
+
+Route.put('students.documentation', 'DocumentationsController.update')
