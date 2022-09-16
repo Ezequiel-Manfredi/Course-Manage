@@ -19,13 +19,14 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+import { PRECEPTOR_ID, USER_ID } from 'App/Utils/constants'
 
 Route.resource('users', 'UsersController')
   .apiOnly()
-  .paramFor('users', 'userId')
-  .where('userId', Route.matchers.number())
+  .paramFor('users', USER_ID)
+  .where(USER_ID, Route.matchers.number())
 
 Route.resource('preceptors', 'PreceptorsController')
   .apiOnly()
-  .paramFor('preceptors', 'preceptorId')
-  .where('preceptorId', Route.matchers.number())
+  .paramFor('preceptors', PRECEPTOR_ID)
+  .where(PRECEPTOR_ID, Route.matchers.number())
