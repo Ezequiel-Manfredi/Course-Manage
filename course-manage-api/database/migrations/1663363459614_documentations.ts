@@ -19,6 +19,7 @@ export default class extends BaseSchema {
       table.boolean('registration_request').defaultTo(false)
       table.boolean('physical_aptitude').defaultTo(false)
       table.boolean('dental').defaultTo(false)
+      table.unique(['student_id'])
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
