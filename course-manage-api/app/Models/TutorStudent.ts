@@ -9,6 +9,7 @@ export default class TutorStudent extends BaseModel {
 
   @column({ serializeAs: 'studentId' })
   public studentId: number
+
   @column({ serializeAs: 'tutorId' })
   public tutorId: number
 
