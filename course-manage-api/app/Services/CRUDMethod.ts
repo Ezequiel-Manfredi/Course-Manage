@@ -7,7 +7,7 @@ import PaginationValidator from 'App/Validators/PaginationValidator'
 export const findAll = async (model: typeof BaseModel, { request, response }: HttpContextContract) => {
   const { page = DEFAULT_PAGE, size = DEFAULT_SIZE } = await request.validate(PaginationValidator)
 
-  const rows = await model.query().paginate(page, size)
+  const rows = await model.query().orderBy('id', 'asc').paginate(page, size)
 
   response.ok({ total: rows.total, results: rows.all() })
 }
