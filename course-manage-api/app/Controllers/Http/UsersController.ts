@@ -1,6 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
-import { create, findAll, findOne, modify, remove } from 'App/Services/commonMethod'
+import { create, findAll, findOne, modify, remove } from 'App/Services/CRUDMethod'
 import { USER_ID } from 'App/Utils/constants'
 import UserValidator from 'App/Validators/UserValidator'
 

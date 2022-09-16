@@ -1,6 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Preceptor from 'App/Models/Preceptor'
-import { create, findAll, findOne, modify, remove } from 'App/Services/commonMethod'
+import { create, findAll, findOne, modify, remove } from 'App/Services/CRUDMethod'
 import { PRECEPTOR_ID } from 'App/Utils/constants'
 import PreceptorValidator from 'App/Validators/PreceptorValidator'
 
