@@ -1,6 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { RequestValidatorNode, ParsedTypedSchema, TypedSchema } from '@ioc:Adonis/Core/Validator'
-import { BaseModel } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, ModelQueryBuilderContract } from '@ioc:Adonis/Lucid/Orm'
 import { DEFAULT_PAGE, DEFAULT_SIZE, DELETE_OBJECT } from 'App/Utils/constants'
 import PaginationValidator from 'App/Validators/PaginationValidator'
 
@@ -19,10 +19,13 @@ export default class CrudController {
     this.validator = validator
   }
 
-  public async index({ request, response }: HttpContextContract) {
+  public async index(
+    { request, response }: HttpContextContract,
+    callBack?: (query: ModelQueryBuilderContract<any>) => any
+  ) {
     const { page = DEFAULT_PAGE, size = DEFAULT_SIZE } = await request.validate(PaginationValidator)
 
-    const rows = await this.model.query().orderBy('id', 'asc').paginate(page, size)
+    const rows = await this.model.query().orderBy('id', 'asc').if(callBack, callBack!).paginate(page, size)
 
     response.ok({ total: rows.total, results: rows.all() })
   }
