@@ -1,27 +1,27 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import User from 'App/Models/User'
+import Preceptor from 'App/Models/Preceptor'
 import { create, findAll, findOne, modify, remove } from 'App/Services/commonMethod'
-import { USER_ID } from 'App/Utils/constants'
-import UserValidator from 'App/Validators/UserValidator'
+import { PRECEPTOR_ID } from 'App/Utils/constants'
+import PreceptorValidator from 'App/Validators/PreceptorValidator'
 
-export default class UsersController {
+export default class PreceptorsController {
   public async index(ctx: HttpContextContract) {
-    findAll(User, ctx)
+    findAll(Preceptor, ctx)
   }
 
   public async store(ctx: HttpContextContract) {
-    create(User, ctx, UserValidator)
+    create(Preceptor, ctx, PreceptorValidator)
   }
 
   public async show(ctx: HttpContextContract) {
-    findOne(User, ctx, USER_ID)
+    findOne(Preceptor, ctx, PRECEPTOR_ID)
   }
 
   public async update(ctx: HttpContextContract) {
-    modify(User, ctx, UserValidator, USER_ID)
+    modify(Preceptor, ctx, PreceptorValidator, PRECEPTOR_ID)
   }
 
   public async destroy(ctx: HttpContextContract) {
-    remove(User, ctx, USER_ID)
+    remove(Preceptor, ctx, PRECEPTOR_ID)
   }
 }
