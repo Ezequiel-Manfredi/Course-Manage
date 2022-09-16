@@ -1,7 +1,8 @@
 import { DateTime } from 'luxon'
-import { column } from '@ioc:Adonis/Lucid/Orm'
+import { column, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
 import Person from './Person'
 import { Gender } from 'App/Utils/constants'
+import Tutor from './Tutor'
 
 export default class Student extends Person {
   @column({ isPrimary: true })
@@ -36,6 +37,15 @@ export default class Student extends Person {
 
   @column()
   public annotations: string | null
+
+  @manyToMany(() => Tutor, {
+    pivotTable: 'tutors_students',
+    localKey: 'id',
+    pivotForeignKey: 'student_id',
+    relatedKey: 'id',
+    pivotRelatedForeignKey: 'tutor_id',
+  })
+  public tutors: ManyToMany<typeof Tutor>
 
   @column.dateTime({ autoCreate: true, serializeAs: null })
   public createdAt: DateTime
