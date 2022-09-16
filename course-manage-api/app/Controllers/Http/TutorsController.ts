@@ -31,4 +31,12 @@ export default class TutorsController extends CrudController {
 
     await TutorStudent.create({ studentId: student.id, tutorId: tutor.id })
   }
+
+  public async show(ctx: HttpContextContract): Promise<void> {
+    const studentId: number = ctx.request.param(STUDENT_ID)
+    const tutorId: number = ctx.request.param(TUTOR_ID)
+    await TutorStudent.query().where('student_id', studentId).andWhere('tutor_id', tutorId).firstOrFail()
+
+    await super.show(ctx)
+  }
 }
