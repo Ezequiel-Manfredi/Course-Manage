@@ -38,6 +38,12 @@ export default class TutorsController extends CrudController {
     await super.show(ctx)
   }
 
+  public async update(ctx: HttpContextContract): Promise<void> {
+    await this.verifyIds(ctx)
+
+    await super.update(ctx)
+  }
+
   public async verifyIds(ctx: HttpContextContract) {
     const studentId: number = ctx.request.param(STUDENT_ID)
     const tutorId: number = ctx.request.param(TUTOR_ID)
