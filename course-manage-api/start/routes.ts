@@ -24,3 +24,8 @@ Route.resource('users', 'UsersController')
   .apiOnly()
   .paramFor('users', 'userId')
   .where('userId', Route.matchers.number())
+
+Route.resource('preceptors', 'PreceptorsController')
+  .apiOnly()
+  .paramFor('preceptors', 'preceptorId')
+  .where('preceptorId', Route.matchers.number())
