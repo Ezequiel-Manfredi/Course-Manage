@@ -6,22 +6,22 @@ import PreceptorValidator from 'App/Validators/PreceptorValidator'
 
 export default class PreceptorsController {
   public async index(ctx: HttpContextContract) {
-    findAll(Preceptor, ctx)
+    await findAll(Preceptor, ctx)
   }
 
   public async store(ctx: HttpContextContract) {
-    create(Preceptor, ctx, PreceptorValidator)
+    await create(Preceptor, ctx, PreceptorValidator)
   }
 
   public async show(ctx: HttpContextContract) {
-    findOne(Preceptor, ctx, PRECEPTOR_ID)
+    await findOne(Preceptor, ctx, PRECEPTOR_ID)
   }
 
   public async update(ctx: HttpContextContract) {
-    modify(Preceptor, ctx, PreceptorValidator, PRECEPTOR_ID)
+    await modify(Preceptor, ctx, PreceptorValidator, PRECEPTOR_ID)
   }
 
   public async destroy(ctx: HttpContextContract) {
-    remove(Preceptor, ctx, PRECEPTOR_ID)
+    await remove(Preceptor, ctx, PRECEPTOR_ID)
   }
 }
