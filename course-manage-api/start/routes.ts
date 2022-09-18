@@ -19,7 +19,7 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
-import { PRECEPTOR_ID, STUDENT_ID, TUTOR_ID, USER_ID } from 'App/Utils/constants'
+import { PRECEPTOR_ID, STUDENT_ID, SUBJECT_ID, TUTOR_ID, USER_ID } from 'App/Utils/constants'
 
 Route.resource('users', 'UsersController')
   .apiOnly()
@@ -47,3 +47,9 @@ Route.put(`/students/:${STUDENT_ID}/documentation`, 'DocumentationsController.up
   STUDENT_ID,
   Route.matchers.number()
 )
+
+Route.resource('subjects', 'SubjectsController')
+  .apiOnly()
+  .except(['update'])
+  .paramFor('subjects', SUBJECT_ID)
+  .where(SUBJECT_ID, Route.matchers.number())
