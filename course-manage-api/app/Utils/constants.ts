@@ -6,6 +6,7 @@ export const USER_ID = 'userId'
 export const PRECEPTOR_ID = 'preceptorId'
 export const STUDENT_ID = 'studentId'
 export const TUTOR_ID = 'tutorId'
+export const SUBJECT_ID = 'subjectId'
 export enum Roles {
   none = 'none',
   preceptor = 'preceptor',
