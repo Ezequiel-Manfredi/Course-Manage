@@ -1,19 +1,20 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
-import Professor from './Professor'
+import { BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import Subject from './Subject'
+import Person from './Person'
 
-export default class Subject extends BaseModel {
+export default class Professor extends Person {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
-  public name: string
+  @column({ serializeAs: 'subjectId' })
+  public subjectId: number
+
+  @belongsTo(() => Subject)
+  public subject: BelongsTo<typeof Subject>
 
   @column()
   public status: boolean
-
-  @hasMany(() => Professor)
-  public professors: HasMany<typeof Professor>
 
   @column.dateTime({ autoCreate: true, serializeAs: null })
   public createdAt: DateTime
