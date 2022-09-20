@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
+import Course from './Course'
 
 export default class School extends BaseModel {
   @column({ isPrimary: true })
@@ -10,6 +11,9 @@ export default class School extends BaseModel {
 
   @column()
   public status: boolean
+
+  @hasMany(() => Course)
+  public courses: HasMany<typeof Course>
 
   @column.dateTime({ autoCreate: true, serializeAs: null })
   public createdAt: DateTime
