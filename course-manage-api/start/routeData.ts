@@ -1,4 +1,5 @@
 import {
+  COURSE_ID,
   PRECEPTOR_ID,
   PROFESSOR_ID,
   SCHOOL_ID,
@@ -49,5 +50,10 @@ export const routeData = [
     callBack: (router: any) => {
       router.except(['update'])
     },
+  },
+  {
+    route: 'course',
+    idName: [COURSE_ID],
+    controller: 'CoursesController',
   },
 ]
