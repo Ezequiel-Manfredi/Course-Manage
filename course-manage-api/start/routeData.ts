@@ -52,7 +52,7 @@ export const routeData = [
     },
   },
   {
-    route: 'course',
+    route: 'courses',
     idName: [COURSE_ID],
     controller: 'CoursesController',
   },
