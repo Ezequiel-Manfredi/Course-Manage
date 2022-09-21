@@ -7,9 +7,6 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
       table.string('name').notNullable()
-      table.integer('male_student_count').defaultTo(0)
-      table.integer('female_student_count').defaultTo(0)
-      table.integer('professor_count').defaultTo(0)
       table.integer('preceptor_id').unsigned().references('preceptors.id').onDelete('CASCADE')
       table.integer('school_id').unsigned().references('schools.id').onDelete('CASCADE')
       table.boolean('status').defaultTo(true)
