@@ -18,7 +18,6 @@ export default class extends BaseSchema {
       table.string('phone_number')
       table.timestamp('birth_date', { useTz: true }).notNullable()
       table.integer('file_number').notNullable()
-      table.float('average_absence').defaultTo(0)
       table.text('annotations')
       table.boolean('status').defaultTo(true)
       table.timestamp('created_at', { useTz: true })
