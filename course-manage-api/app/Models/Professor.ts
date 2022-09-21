@@ -1,7 +1,8 @@
 import { DateTime } from 'luxon'
-import { BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BelongsTo, belongsTo, column, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
 import Subject from './Subject'
 import Person from './Person'
+import Course from './Course'
 
 export default class Professor extends Person {
   @column({ isPrimary: true })
@@ -12,6 +13,15 @@ export default class Professor extends Person {
 
   @belongsTo(() => Subject)
   public subject: BelongsTo<typeof Subject>
+
+  @manyToMany(() => Course, {
+    pivotTable: 'professors_courses',
+    localKey: 'id',
+    pivotForeignKey: 'professor_id',
+    relatedKey: 'id',
+    pivotRelatedForeignKey: 'course_id',
+  })
+  public courses: ManyToMany<typeof Course>
 
   @column()
   public status: boolean
