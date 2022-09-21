@@ -1,7 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
 import Preceptor from './Preceptor'
 import School from './School'
+import Professor from './Professor'
 
 export default class Course extends BaseModel {
   @column({ isPrimary: true })
@@ -16,9 +17,6 @@ export default class Course extends BaseModel {
   @column({ serializeAs: 'femaleStudentCount' })
   public femaleStudentCount: number
 
-  @column({ serializeAs: 'professorCount' })
-  public professorCount: number
-
   @column({ serializeAs: 'preceptorId' })
   public preceptorId: number
 
@@ -30,6 +28,15 @@ export default class Course extends BaseModel {
 
   @belongsTo(() => School)
   public school: BelongsTo<typeof School>
+
+  @manyToMany(() => Professor, {
+    pivotTable: 'professors_courses',
+    localKey: 'id',
+    pivotForeignKey: 'course_id',
+    relatedKey: 'id',
+    pivotRelatedForeignKey: 'professor_id',
+  })
+  public professors: ManyToMany<typeof Professor>
 
   @column()
   public status: boolean
@@ -43,4 +50,10 @@ export default class Course extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true, serializeAs: null })
   public updatedAt: DateTime
+
+  public serializeExtras() {
+    return {
+      professorsCount: parseInt(this.$extras.professors_count) || 0,
+    }
+  }
 }
