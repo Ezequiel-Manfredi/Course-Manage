@@ -4,6 +4,7 @@ import Person from './Person'
 import { Gender } from 'App/Utils/constants'
 import Tutor from './Tutor'
 import Documentation from './Documentation'
+import Course from './Course'
 
 export default class Student extends Person {
   @column({ isPrimary: true })
@@ -33,9 +34,6 @@ export default class Student extends Person {
   @column({ serializeAs: 'fileNumber' })
   public fileNumber: number
 
-  @column({ serializeAs: 'averageAbsence' })
-  public averageAbsence: number
-
   @column()
   public annotations: string | null
 
@@ -48,6 +46,16 @@ export default class Student extends Person {
   })
   public tutors: ManyToMany<typeof Tutor>
 
+  @manyToMany(() => Course, {
+    pivotTable: 'students_courses',
+    localKey: 'id',
+    pivotForeignKey: 'student_id',
+    relatedKey: 'id',
+    pivotRelatedForeignKey: 'course_id',
+    pivotColumns: ['absence_count', 'attendance_count', 'class_count'],
+  })
+  public courses: ManyToMany<typeof Course>
+
   @hasOne(() => Documentation)
   public documentation: HasOne<typeof Documentation>
 
@@ -56,4 +64,15 @@ export default class Student extends Person {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true, serializeAs: null })
   public updatedAt: DateTime
+
+  public serializeExtras() {
+    if (this.$extras.pivot_absence_count)
+      return {
+        absenceCount: parseInt(this.$extras.pivot_absence_count) || 0,
+        attendanceCount: parseInt(this.$extras.pivot_attendance_count) || 0,
+        classCount: parseInt(this.$extras.pivot_class_count) || 0,
+        averageAbsence:
+          (parseInt(this.$extras.pivot_absence_count) * 100) / parseInt(this.$extras.pivot_class_count) || 0,
+      }
+  }
 }

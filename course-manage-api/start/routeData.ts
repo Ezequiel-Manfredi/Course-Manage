@@ -64,4 +64,12 @@ export const routeData = [
       router.only(['index', 'store', 'destroy'])
     },
   },
+  {
+    route: 'courses.students',
+    idName: [COURSE_ID, STUDENT_ID],
+    controller: 'StudentCourseController',
+    callBack: (router: any) => {
+      router.only(['index', 'store', 'destroy'])
+    },
+  },
 ]

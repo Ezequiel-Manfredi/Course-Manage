@@ -13,7 +13,13 @@ export default class StudentsController extends CrudController {
   public async show({ request, response }: HttpContextContract): Promise<void> {
     const id: number = request.param(this.idName)
 
-    const row = await Student.query().where('id', id).preload('documentation').firstOrFail()
+    const row = await Student.query()
+      .where('id', id)
+      .preload('courses', (query) => {
+        query.pivotColumns(['absence_count', 'attendance_count', 'class_count'])
+      })
+      .preload('documentation')
+      .firstOrFail()
 
     response.ok(row)
   }
