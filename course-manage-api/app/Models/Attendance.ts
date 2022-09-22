@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, beforeSave, column } from '@ioc:Adonis/Lucid/Orm'
 
 export default class Attendance extends BaseModel {
   @column({ isPrimary: true })
@@ -12,11 +12,18 @@ export default class Attendance extends BaseModel {
   public record: object
 
   @column.dateTime({ serialize: (value: DateTime) => value.toFormat('yyyy-MM-dd') })
-  public date: DateTime
+  public date: DateTime | null
 
   @column.dateTime({ autoCreate: true, serializeAs: null })
   public createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true, serializeAs: null })
   public updatedAt: DateTime
+
+  @beforeSave()
+  public static verifyDate(attendace: Attendance) {
+    if (!attendace.date) {
+      attendace.date = attendace.createdAt
+    }
+  }
 }
