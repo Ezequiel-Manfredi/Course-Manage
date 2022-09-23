@@ -1,9 +1,19 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
+import {
+  BaseModel,
+  BelongsTo,
+  belongsTo,
+  column,
+  HasMany,
+  hasMany,
+  ManyToMany,
+  manyToMany,
+} from '@ioc:Adonis/Lucid/Orm'
 import Preceptor from './Preceptor'
 import School from './School'
 import Professor from './Professor'
 import Student from './Student'
+import Attendance from './Attendance'
 
 export default class Course extends BaseModel {
   @column({ isPrimary: true })
@@ -42,6 +52,9 @@ export default class Course extends BaseModel {
   })
   public students: ManyToMany<typeof Student>
 
+  @hasMany(() => Attendance)
+  public attendaces: HasMany<typeof Attendance>
+
   @column()
   public status: boolean
 
@@ -56,19 +69,29 @@ export default class Course extends BaseModel {
   public updatedAt: DateTime
 
   public serializeExtras() {
-    if (this.$extras.pivot_absence_count)
+    const {
+      pivot_absence_count: pivotAbsenceCount,
+      pivot_attendance_count: pivotAttendanceCount,
+      pivot_class_count: pivotClassCount,
+      professors_count: professorsCount,
+      female_student_count: femaleStudentCount,
+      male_student_count: maleStudentCount,
+    } = this.$extras
+
+    if (pivotClassCount) {
+      const average = (parseInt(pivotAbsenceCount) * 100) / parseInt(pivotClassCount)
       return {
-        absenceCount: parseInt(this.$extras.pivot_absence_count) || 0,
-        attendanceCount: parseInt(this.$extras.pivot_attendance_count) || 0,
-        classCount: parseInt(this.$extras.pivot_class_count) || 0,
-        averageAbsence:
-          (parseInt(this.$extras.pivot_absence_count) * 100) / parseInt(this.$extras.pivot_class_count) || 0,
+        absenceCount: parseInt(pivotAbsenceCount) || 0,
+        attendanceCount: parseInt(pivotAttendanceCount) || 0,
+        classCount: parseInt(pivotClassCount) || 0,
+        averageAbsence: parseFloat(average.toFixed(2)) || 0,
       }
-    if (this.$extras.professors_count || this.$extras.female_student_count || this.$extras.male_student_count)
+    }
+    if (professorsCount || femaleStudentCount || maleStudentCount)
       return {
-        professorsCount: parseInt(this.$extras.professors_count) || 0,
-        femaleStudentCount: parseInt(this.$extras.female_student_count) || 0,
-        maleStudentCount: parseInt(this.$extras.male_student_count) || 0,
+        professorsCount: parseInt(professorsCount) || 0,
+        femaleStudentCount: parseInt(femaleStudentCount) || 0,
+        maleStudentCount: parseInt(maleStudentCount) || 0,
       }
   }
 }

@@ -66,13 +66,20 @@ export default class Student extends Person {
   public updatedAt: DateTime
 
   public serializeExtras() {
-    if (this.$extras.pivot_absence_count)
+    const {
+      pivot_absence_count: pivotAbsenceCount,
+      pivot_attendance_count: pivotAttendanceCount,
+      pivot_class_count: pivotClassCount,
+    } = this.$extras
+
+    if (pivotClassCount) {
+      const average = (parseInt(pivotAbsenceCount) * 100) / parseInt(pivotClassCount)
       return {
-        absenceCount: parseInt(this.$extras.pivot_absence_count) || 0,
-        attendanceCount: parseInt(this.$extras.pivot_attendance_count) || 0,
-        classCount: parseInt(this.$extras.pivot_class_count) || 0,
-        averageAbsence:
-          (parseInt(this.$extras.pivot_absence_count) * 100) / parseInt(this.$extras.pivot_class_count) || 0,
+        absenceCount: parseInt(pivotAbsenceCount) || 0,
+        attendanceCount: parseInt(pivotAttendanceCount) || 0,
+        classCount: parseInt(pivotClassCount) || 0,
+        averageAbsence: parseFloat(average.toFixed(2)) || 0,
       }
+    }
   }
 }

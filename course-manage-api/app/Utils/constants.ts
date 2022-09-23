@@ -10,6 +10,7 @@ export const SUBJECT_ID = 'subjectId'
 export const PROFESSOR_ID = 'professorId'
 export const SCHOOL_ID = 'schoolId'
 export const COURSE_ID = 'courseId'
+export const ATTENDANCE_ID = 'attendanceId'
 export enum Roles {
   none = 'none',
   preceptor = 'preceptor',

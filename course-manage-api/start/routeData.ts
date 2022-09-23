@@ -1,4 +1,5 @@
 import {
+  ATTENDANCE_ID,
   COURSE_ID,
   PRECEPTOR_ID,
   PROFESSOR_ID,
@@ -70,6 +71,14 @@ export const routeData = [
     controller: 'StudentCourseController',
     callBack: (router: any) => {
       router.only(['index', 'store', 'destroy'])
+    },
+  },
+  {
+    route: 'courses.attendances',
+    idName: [COURSE_ID, ATTENDANCE_ID],
+    controller: 'AttendancesController',
+    callBack: (router: any) => {
+      router.except(['update', 'show'])
     },
   },
 ]
