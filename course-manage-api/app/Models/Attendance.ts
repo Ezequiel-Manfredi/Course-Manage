@@ -9,7 +9,7 @@ export default class Attendance extends BaseModel {
   public courseId: number
 
   @column()
-  public record: object
+  public record: { students: number[] }
 
   @column.dateTime({ serialize: (value: DateTime) => value.toFormat('yyyy-MM-dd') })
   public date: DateTime | null
@@ -23,7 +23,7 @@ export default class Attendance extends BaseModel {
   @beforeSave()
   public static verifyDate(attendace: Attendance) {
     if (!attendace.date) {
-      attendace.date = attendace.createdAt
+      attendace.date = DateTime.now()
     }
   }
 }
