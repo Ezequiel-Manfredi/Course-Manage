@@ -3,7 +3,11 @@ import { STUDENT_ID } from 'App/Utils/constants'
 import { routeData } from './routeData'
 
 routeData.forEach(({ route, idName, controller, callBack }) => {
-  let router = Route.resource(route, controller).apiOnly()
+  let router = Route.resource(route, controller)
+    .apiOnly()
+    .middleware({
+      '*': ['auth'],
+    })
   const subroutes = route.split('.')
 
   router = subroutes.reduce((router, subroute, index) => {
@@ -11,8 +15,6 @@ routeData.forEach(({ route, idName, controller, callBack }) => {
   }, router)
 
   if (callBack) callBack(router)
-
-  Route.group(() => router).middleware('auth')
 })
 
 Route.put(`/students/:${STUDENT_ID}/documentation`, 'DocumentationsController.update')
