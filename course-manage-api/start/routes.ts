@@ -11,9 +11,10 @@ routeData.forEach(({ route, idName, controller, callBack }) => {
   }, router)
 
   if (callBack) callBack(router)
+
+  Route.group(() => router).middleware('auth')
 })
 
-Route.put(`/students/:${STUDENT_ID}/documentation`, 'DocumentationsController.update').where(
-  STUDENT_ID,
-  Route.matchers.number()
-)
+Route.put(`/students/:${STUDENT_ID}/documentation`, 'DocumentationsController.update')
+  .where(STUDENT_ID, Route.matchers.number())
+  .middleware('auth')
