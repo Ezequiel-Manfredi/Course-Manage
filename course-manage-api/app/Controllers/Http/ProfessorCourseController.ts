@@ -24,19 +24,20 @@ export default class ProfessorCoursesController {
     const { professorsId, courseId } = await request.validate(ProfessorCourseValidator)
 
     const list = professorsId.map(async (professorId: number) => {
-      await ProfessorCourse.firstOrCreate({ courseId, professorId })
+      const { subjectId } = await Professor.query().where('id', professorId).firstOrFail()
+      const courseProfessor = await ProfessorCourse.firstOrCreate({ courseId, professorId, subjectId })
 
       const course = await Course.query().where('id', courseId).preload('students').firstOrFail()
-      const { subjectId } = await Professor.query().where('id', professorId).firstOrFail()
-
       const list = course.students.map(async ({ id }) => {
-        await SubjectStudent.firstOrCreate({ courseId, id, subjectId })
+        await SubjectStudent.firstOrCreate({ courseId, studentId: id, subjectId })
       })
       await Promise.all(list)
-    })
-    const professors = await Promise.all(list)
 
-    response.ok(professors)
+      return courseProfessor
+    })
+    const courseProfessors = await Promise.all(list)
+
+    response.ok(courseProfessors)
   }
 
   public async destroy({ request, response }: HttpContextContract): Promise<void> {
