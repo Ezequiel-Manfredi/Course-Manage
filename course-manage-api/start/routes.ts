@@ -18,3 +18,6 @@ routeData.forEach(({ route, idName, controller, callBack }) => {
 Route.put(`/students/:${STUDENT_ID}/documentation`, 'DocumentationsController.update')
   .where(STUDENT_ID, Route.matchers.number())
   .middleware('auth')
+
+Route.post('/login', 'AuthenticationController.login')
+Route.post('/logout', 'AuthenticationController.logout').middleware('auth')
