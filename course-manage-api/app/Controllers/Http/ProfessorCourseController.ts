@@ -1,6 +1,8 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Course from 'App/Models/Course'
+import Professor from 'App/Models/Professor'
 import ProfessorCourse from 'App/Models/ProfessorCourse'
+import SubjectStudent from 'App/Models/SubjectStudent'
 import { COURSE_ID } from 'App/Utils/constants'
 import ProfessorCourseValidator from 'App/Validators/ProfessorCourseValidator'
 
@@ -21,12 +23,21 @@ export default class ProfessorCoursesController {
     request.updateBody({ ...request.body(), courseId: id })
     const { professorsId, courseId } = await request.validate(ProfessorCourseValidator)
 
-    const list = professorsId.map(
-      async (professorId: number) => await ProfessorCourse.firstOrCreate({ courseId, professorId })
-    )
-    const professors = await Promise.all(list)
+    const list = professorsId.map(async (professorId: number) => {
+      const { subjectId } = await Professor.query().where('id', professorId).firstOrFail()
+      const courseProfessor = await ProfessorCourse.firstOrCreate({ courseId, professorId, subjectId })
 
-    response.ok(professors)
+      const course = await Course.query().where('id', courseId).preload('students').firstOrFail()
+      const list = course.students.map(async ({ id }) => {
+        await SubjectStudent.firstOrCreate({ courseId, studentId: id, subjectId })
+      })
+      await Promise.all(list)
+
+      return courseProfessor
+    })
+    const courseProfessors = await Promise.all(list)
+
+    response.ok(courseProfessors)
   }
 
   public async destroy({ request, response }: HttpContextContract): Promise<void> {

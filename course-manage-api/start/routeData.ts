@@ -81,4 +81,12 @@ export const routeData = [
       router.except(['update', 'show'])
     },
   },
+  {
+    route: 'courses.students.subjects',
+    idName: [COURSE_ID, STUDENT_ID, SUBJECT_ID],
+    controller: 'SubjectStudentController',
+    callBack: (router: any) => {
+      router.only(['index', 'update'])
+    },
+  },
 ]
