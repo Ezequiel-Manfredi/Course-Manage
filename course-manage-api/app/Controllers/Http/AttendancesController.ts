@@ -1,6 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Attendance from 'App/Models/Attendance'
-import { ATTENDANCE_ID, COURSE_ID, DEFAULT_PAGE, DEFAULT_SIZE } from 'App/Utils/constants'
+import { COURSE_ID, DEFAULT_PAGE, DEFAULT_SIZE } from 'App/Utils/constants'
 import PaginationValidator from 'App/Validators/PaginationValidator'
 import AttendanceValidator from 'App/Validators/AttendanceValidator'
 import StudentCourse from 'App/Models/StudentCourse'
@@ -38,8 +38,7 @@ export default class AttendancesController {
   }
 
   public async destroy({ request, response }: HttpContextContract): Promise<void> {
-    const courseId: number = request.param(COURSE_ID)
-    const attendanceId: number = request.param(ATTENDANCE_ID)
+    const { courseId, attendanceId } = request.params()
     const attendance = await Attendance.query()
       .where('course_id', courseId)
       .andWhere('id', attendanceId)

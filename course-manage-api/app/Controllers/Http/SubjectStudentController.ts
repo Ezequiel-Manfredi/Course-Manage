@@ -1,12 +1,10 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import SubjectStudent from 'App/Models/SubjectStudent'
-import { COURSE_ID, STUDENT_ID, SUBJECT_ID } from 'App/Utils/constants'
 import SubjectStudentValidator from 'App/Validators/SubjectStudentValidator'
 
 export default class SubjectStudentController {
   public async index({ request, response }: HttpContextContract) {
-    const courseId = request.param(COURSE_ID)
-    const studentId = request.param(STUDENT_ID)
+    const { courseId, studentId } = request.params()
 
     const subjects = await SubjectStudent.query()
       .where('course_id', courseId)
@@ -16,9 +14,7 @@ export default class SubjectStudentController {
   }
 
   public async update({ request, response }: HttpContextContract) {
-    const courseId = request.param(COURSE_ID)
-    const studentId = request.param(STUDENT_ID)
-    const subjectId = request.param(SUBJECT_ID)
+    const { courseId, studentId, subjectId } = request.params()
     const body = await request.validate(SubjectStudentValidator)
 
     const subject = await SubjectStudent.query()
