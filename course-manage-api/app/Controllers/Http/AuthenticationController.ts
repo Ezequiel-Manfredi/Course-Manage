@@ -2,7 +2,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import AuthenticationValidator from 'App/Validators/AuthenticationValidator'
 
 export default class AuthenticationController {
-  public async login({ auth, request, response }: HttpContextContract) {
+  public async login({ auth, request, response }: HttpContextContract): Promise<void> {
     const { email, password } = await request.validate(AuthenticationValidator)
 
     const token = await auth.use('api').attempt(email, password)
@@ -10,7 +10,7 @@ export default class AuthenticationController {
     response.ok(token)
   }
 
-  public async logout({ auth, response }: HttpContextContract) {
+  public async logout({ auth, response }: HttpContextContract): Promise<void> {
     await auth.use('api').revoke()
 
     response.ok(null)

@@ -3,7 +3,7 @@ import SubjectStudent from 'App/Models/SubjectStudent'
 import SubjectStudentValidator from 'App/Validators/SubjectStudentValidator'
 
 export default class SubjectStudentController {
-  public async index({ request, response }: HttpContextContract) {
+  public async index({ request, response }: HttpContextContract): Promise<void> {
     const { courseId, studentId } = request.params()
 
     const subjects = await SubjectStudent.query()
@@ -13,7 +13,7 @@ export default class SubjectStudentController {
     response.ok({ total: subjects.length, result: subjects })
   }
 
-  public async update({ request, response }: HttpContextContract) {
+  public async update({ request, response }: HttpContextContract): Promise<void> {
     const { courseId, studentId, subjectId } = request.params()
     const body = await request.validate(SubjectStudentValidator)
 
