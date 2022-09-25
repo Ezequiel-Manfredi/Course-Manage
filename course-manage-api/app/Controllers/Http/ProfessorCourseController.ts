@@ -3,7 +3,7 @@ import Course from 'App/Models/Course'
 import Professor from 'App/Models/Professor'
 import ProfessorCourse from 'App/Models/ProfessorCourse'
 import SubjectStudent from 'App/Models/SubjectStudent'
-import { COURSE_ID } from 'App/Utils/constants'
+import { COURSE_ID, DELETE_OBJECT } from 'App/Utils/constants'
 import ProfessorCourseValidator from 'App/Validators/ProfessorCourseValidator'
 
 export default class ProfessorCoursesController {
@@ -23,6 +23,7 @@ export default class ProfessorCoursesController {
     request.updateBody({ ...request.body(), courseId: id })
     const { professorsId, courseId } = await request.validate(ProfessorCourseValidator)
 
+    // creo la relacion profesor-curso y actualizo las nuevas materias a los estudiantes
     const list = professorsId.map(async (professorId: number) => {
       const { subjectId } = await Professor.query().where('id', professorId).firstOrFail()
       const courseProfessor = await ProfessorCourse.firstOrCreate({ courseId, professorId, subjectId })
@@ -47,7 +48,7 @@ export default class ProfessorCoursesController {
       .andWhere('professor_id', professorId)
       .firstOrFail()
 
-    await relationship.delete()
+    await relationship.merge(DELETE_OBJECT).save()
 
     response.ok(null)
   }

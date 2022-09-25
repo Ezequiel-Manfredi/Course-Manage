@@ -22,6 +22,9 @@ export default class StudentCourse extends BaseModel {
   @column({ serializeAs: 'courseId' })
   public courseId: number
 
+  @column()
+  public status: boolean
+
   @column.dateTime({ autoCreate: true, serializeAs: null })
   public createdAt: DateTime
 
