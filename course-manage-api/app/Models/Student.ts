@@ -14,10 +14,10 @@ export default class Student extends Person {
   public gender: Gender
 
   @column()
-  public dni: number | null
+  public dni: string | null
 
   @column()
-  public cuil: number | null
+  public cuil: string | null
 
   @column()
   public address: string | null

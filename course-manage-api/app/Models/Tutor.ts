@@ -8,13 +8,13 @@ export default class Tutor extends Person {
   public id: number
 
   @column()
-  public dni: number
+  public dni: string | null
 
   @column()
-  public cuil: number
+  public cuil: string | null
 
   @column()
-  public address: string
+  public address: string | null
 
   @manyToMany(() => Student, {
     pivotTable: 'tutors_students',
