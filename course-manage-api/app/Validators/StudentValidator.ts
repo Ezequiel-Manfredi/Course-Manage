@@ -1,6 +1,6 @@
-import { schema, CustomMessages } from '@ioc:Adonis/Core/Validator'
+import { schema, rules, CustomMessages } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import { Gender } from 'App/Utils/constants'
+import { CUIL_REGEX, DATE_FORMAT, DNI_REGEX, Gender } from 'App/Utils/constants'
 
 export default class StudentValidator {
   constructor(protected ctx: HttpContextContract) {
@@ -11,32 +11,34 @@ export default class StudentValidator {
 
   public schema: any
 
-  public create = schema.create({
-    firstName: schema.string(),
-    middleName: schema.string.optional(),
-    lastName: schema.string(),
-    gender: schema.enum(Object.values(Gender)),
-    dni: schema.number.optional(),
-    cuil: schema.number.optional(),
+  private base = {
+    middleName: schema.string.optional([rules.alpha({ allow: ['space'] })]),
+    dni: schema.string.optional([rules.regex(DNI_REGEX)]),
+    cuil: schema.string.optional([rules.regex(CUIL_REGEX)]),
     address: schema.string.optional(),
-    phoneNumber: schema.string.optional(),
-    birthDate: schema.date({ format: 'yyyy-MM-dd' }),
-    fileNumber: schema.number(),
+    phoneNumber: schema.string.optional([rules.mobile({ locale: ['es-AR'] })]),
     annotations: schema.string.optional(),
+  }
+
+  public create = schema.create({
+    ...this.base,
+    firstName: schema.string([rules.alpha({ allow: ['space'] })]),
+    lastName: schema.string([rules.alpha({ allow: ['space'] })]),
+    gender: schema.enum(Object.values(Gender)),
+    birthDate: schema.date({ format: DATE_FORMAT }, [rules.before('today')]),
+    fileNumber: schema.number([rules.unique({ table: 'students', column: 'file_number' }), rules.unsigned()]),
   })
 
   public modify = schema.create({
-    firstName: schema.string.optional(),
-    middleName: schema.string.optional(),
-    lastName: schema.string.optional(),
+    ...this.base,
+    firstName: schema.string.optional([rules.alpha({ allow: ['space'] })]),
+    lastName: schema.string.optional([rules.alpha({ allow: ['space'] })]),
     gender: schema.enum.optional(Object.values(Gender)),
-    dni: schema.number.optional(),
-    cuil: schema.number.optional(),
-    address: schema.string.optional(),
-    phoneNumber: schema.string.optional(),
-    birthDate: schema.date.optional({ format: 'yyyy-MM-dd' }),
-    fileNumber: schema.number.optional(),
-    annotations: schema.string.optional(),
+    birthDate: schema.date.optional({ format: DATE_FORMAT }, [rules.before('today')]),
+    fileNumber: schema.number.optional([
+      rules.unique({ table: 'students', column: 'file_number' }),
+      rules.unsigned(),
+    ]),
   })
 
   private options = {

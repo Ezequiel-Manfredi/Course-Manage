@@ -11,20 +11,20 @@ export default class ProfessorValidator {
   public schema: any
 
   private base = {
-    middleName: schema.string.optional(),
+    middleName: schema.string.optional([rules.alpha({ allow: ['space'] })]),
   }
 
   public create = schema.create({
     ...this.base,
-    firstName: schema.string(),
-    lastName: schema.string(),
+    firstName: schema.string([rules.alpha({ allow: ['space'] })]),
+    lastName: schema.string([rules.alpha({ allow: ['space'] })]),
     subjectId: schema.number([rules.exists({ table: 'subjects', column: 'id' })]),
   })
 
   public modify = schema.create({
     ...this.base,
-    firstName: schema.string.optional(),
-    lastName: schema.string.optional(),
+    firstName: schema.string.optional([rules.alpha({ allow: ['space'] })]),
+    lastName: schema.string.optional([rules.alpha({ allow: ['space'] })]),
     subjectId: schema.number.optional([rules.exists({ table: 'subjects', column: 'id' })]),
   })
 
