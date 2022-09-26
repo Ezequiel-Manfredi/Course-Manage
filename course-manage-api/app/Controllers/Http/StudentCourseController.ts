@@ -2,7 +2,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Course from 'App/Models/Course'
 import StudentCourse from 'App/Models/StudentCourse'
 import SubjectStudent from 'App/Models/SubjectStudent'
-import { COURSE_ID } from 'App/Utils/constants'
+import { COURSE_ID, DELETE_OBJECT } from 'App/Utils/constants'
 import StudentCourseValidator from 'App/Validators/StudentCourseValidator'
 
 export default class StudentCoursesController {
@@ -24,6 +24,7 @@ export default class StudentCoursesController {
     request.updateBody({ ...request.body(), courseId: id })
     const { studentsId, courseId } = await request.validate(StudentCourseValidator)
 
+    // creo la relacion estudiante-curso y le agrego las materias los estudiantes
     const list = studentsId.map(async (studentId: number) => {
       await StudentCourse.firstOrCreate({ courseId, studentId })
 
@@ -46,7 +47,7 @@ export default class StudentCoursesController {
       .andWhere('student_id', studentId)
       .firstOrFail()
 
-    await relationship.delete()
+    await relationship.merge(DELETE_OBJECT).save()
 
     response.ok(null)
   }

@@ -16,6 +16,9 @@ export default class ProfessorCourse extends BaseModel {
   @column({ serializeAs: null })
   public subjectId: number
 
+  @column()
+  public status: boolean
+
   @column.dateTime({ autoCreate: true, serializeAs: null })
   public createdAt: DateTime
 

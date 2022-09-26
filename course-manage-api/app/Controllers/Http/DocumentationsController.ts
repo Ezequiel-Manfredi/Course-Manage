@@ -4,7 +4,7 @@ import { STUDENT_ID } from 'App/Utils/constants'
 import DocumentationValidator from 'App/Validators/DocumentationValidator'
 
 export default class DocumentationsController {
-  public async update({ request, response }: HttpContextContract) {
+  public async update({ request, response }: HttpContextContract): Promise<void> {
     const id: number = request.param(STUDENT_ID)
     const body = await request.validate(DocumentationValidator)
 

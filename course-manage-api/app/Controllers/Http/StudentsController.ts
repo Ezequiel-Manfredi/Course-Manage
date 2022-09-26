@@ -24,7 +24,7 @@ export default class StudentsController extends CrudController {
     response.ok(row)
   }
 
-  public async store(ctx: HttpContextContract): Promise<any> {
+  public async store(ctx: HttpContextContract): Promise<void> {
     const student: Student = await super.store(ctx)
 
     await Documentation.create({ studentId: student.id })

@@ -22,7 +22,7 @@ export default class CrudController {
   public async index(
     { request, response }: HttpContextContract,
     callBack?: (query: ModelQueryBuilderContract<any>) => any
-  ) {
+  ): Promise<void> {
     const { page = DEFAULT_PAGE, size = DEFAULT_SIZE } = await request.validate(PaginationValidator)
 
     const rows = await this.model.query().orderBy('id', 'asc').if(callBack, callBack!).paginate(page, size)
@@ -39,7 +39,7 @@ export default class CrudController {
     return row
   }
 
-  public async show({ request, response }: HttpContextContract) {
+  public async show({ request, response }: HttpContextContract): Promise<void> {
     const id: number = request.param(this.idName)
 
     const row = await this.model.findOrFail(id)
@@ -47,7 +47,7 @@ export default class CrudController {
     response.ok(row)
   }
 
-  public async update({ request, response }: HttpContextContract) {
+  public async update({ request, response }: HttpContextContract): Promise<void> {
     const id: number = request.param(this.idName)
     const body = await request.validate(this.validator)
 
@@ -57,7 +57,7 @@ export default class CrudController {
     response.ok(row)
   }
 
-  public async destroy({ request, response }: HttpContextContract) {
+  public async destroy({ request, response }: HttpContextContract): Promise<void> {
     const id: number = request.param(this.idName)
 
     const row = await this.model.findOrFail(id)

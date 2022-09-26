@@ -10,17 +10,21 @@ export default class PreceptorValidator {
 
   public schema: any
 
+  private base = {
+    middleName: schema.string.optional([rules.alpha({ allow: ['space'] })]),
+  }
+
   public create = schema.create({
-    firstName: schema.string(),
-    middleName: schema.string.optional(),
-    lastName: schema.string(),
+    ...this.base,
+    firstName: schema.string([rules.alpha({ allow: ['space'] })]),
+    lastName: schema.string([rules.alpha({ allow: ['space'] })]),
     userId: schema.number([rules.exists({ table: 'users', column: 'id' })]),
   })
 
   public modify = schema.create({
-    firstName: schema.string.optional(),
-    middleName: schema.string.optional(),
-    lastName: schema.string.optional(),
+    ...this.base,
+    firstName: schema.string.optional([rules.alpha({ allow: ['space'] })]),
+    lastName: schema.string.optional([rules.alpha({ allow: ['space'] })]),
     userId: schema.number.optional([rules.exists({ table: 'users', column: 'id' })]),
   })
 

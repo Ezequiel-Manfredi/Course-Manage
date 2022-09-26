@@ -12,14 +12,26 @@ export default class UserValidator {
   public schema: any
 
   public create = schema.create({
-    email: schema.string({}, [rules.email(), rules.unique({ table: 'users', column: 'email' })]),
-    password: schema.string({}, [rules.confirmed(), rules.minLength(MINIMUM_PASSWORD_LENGTH)]),
+    email: schema.string({}, [
+      rules.email(),
+      rules.unique({ table: 'users', column: 'email', caseInsensitive: true }),
+    ]),
+    password: schema.string({}, [
+      rules.confirmed('passwordConfirmation'),
+      rules.minLength(MINIMUM_PASSWORD_LENGTH),
+    ]),
     role: schema.enum(Object.values(Roles)),
   })
 
   public modify = schema.create({
-    email: schema.string.optional({}, [rules.email(), rules.unique({ table: 'users', column: 'email' })]),
-    password: schema.string.optional({}, [rules.confirmed(), rules.minLength(MINIMUM_PASSWORD_LENGTH)]),
+    email: schema.string.optional({}, [
+      rules.email(),
+      rules.unique({ table: 'users', column: 'email', caseInsensitive: true }),
+    ]),
+    password: schema.string.optional({}, [
+      rules.confirmed('passwordConfirmation'),
+      rules.minLength(MINIMUM_PASSWORD_LENGTH),
+    ]),
     role: schema.enum.optional(Object.values(Roles)),
   })
 
