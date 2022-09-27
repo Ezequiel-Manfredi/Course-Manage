@@ -1,6 +1,13 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import NotFound from './pages/NotFound'
+
 function App() {
   return (
-    <h1>Course Manage</h1>
+    <BrowserRouter>
+      <Routes>
+        <Route path='*' element={<NotFound/>}/>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
