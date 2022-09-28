@@ -1,0 +1,52 @@
+.container {
+  display: flex;
+  width: 100vw;
+  min-height: 100vh;
+  position: relative;
+}
+
+.menu {
+  position: sticky;
+  top: 0;
+  flex-shrink: 3;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 30%;
+  padding: .5rem;
+  background-color: #eee;
+  text-align: center;
+}
+.menu[hidden] {
+  left: -100%;
+  transform: translate(-100%);
+}
+.menu-movile {
+  padding: 3rem;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  left: 0%;
+  transition: all .5s;
+}
+.menu-btn {
+  position: sticky;
+  top: .5rem;
+  margin: .5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  z-index: 9;
+  border: none;
+  background: none;
+}
+
+.menu>ul {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  font-size: 24px;
+}
+
+main {
+  width: 70%;
+}
