@@ -1,13 +1,11 @@
-import { useEffect, useState, useRef } from 'react'
+import { useContext, useRef } from 'react'
+import { MovileContext } from '../../context/MovileContext'
 import { Link } from 'react-router-dom'
 import './style.css'
 
 export default function NavigationPanel({ children }) {
+  const { isMovile } = useContext(MovileContext)
   const menuElement = useRef()
-  const [size, setSize] = useState(window.innerWidth)
-  const isMovile = size < 500
-
-  useEffect(() => window.addEventListener('resize', () => { setSize(window.innerWidth) }), [])
 
   const toggleMenu = () => {
     menuElement.current.toggleAttribute('hidden')
