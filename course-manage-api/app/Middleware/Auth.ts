@@ -71,7 +71,7 @@ export default class AuthMiddleware {
      */
     const guards = customGuards.length ? customGuards : [auth.name]
 
-    if (request.method() !== 'GET') {
+    if (!(request.matchesRoute('/users') && request.method() === 'POST')) {
       await this.authenticate(auth, guards)
     }
 
