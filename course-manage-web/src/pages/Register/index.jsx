@@ -1,14 +1,17 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { MovileContext } from '../../contexts/MovileContext'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { userSchema } from '../../validators/Schemas'
 import { createApi } from '../../services/apiCall'
 import { BAD_REQUEST, CREATED } from '../../utils/constants'
+import './style.css'
 
 export default function Register() {
   const [isRegisted, setRegisted] = useState(false)
   const navigator = useNavigate()
+  const { isMovile } = useContext(MovileContext)
   const { register, handleSubmit, formState: { errors }, setValue, setError } = useForm({
     resolver: yupResolver(userSchema)
   })
@@ -24,31 +27,34 @@ export default function Register() {
   if (isRegisted) navigator('/login')
 
   return (
-    <form onSubmit={handleSubmit(submit)}>
+    <form
+      className={`register-form ${isMovile ? 'register-movile' : ''}`}
+      onSubmit={handleSubmit(submit)}
+    >
+      <h2>Registrar usuario</h2>
       <label>
-        <input type="email" placeholder='Correo Electronico:'
-          name="email" {...register('email')}
+        <input required type="email" placeholder='Correo Electronico'
+          name="email" {...register('email')} autoComplete='off'
         />
         <p>{errors.email && 'Debe ser un email válido'}</p>
       </label>
       <label>
-        <input type="password" placeholder='Contraseña:'
+        <input required type="password" placeholder='Contraseña'
           name="password" {...register('password')}
         />
         <p>{errors.password && 'Debe tener un mínimo de 8 caracteres'}</p>
       </label>
       <label>
-        <input type="password" placeholder='Confirmar Contraseña:'
+        <input required type="password" placeholder='Confirmar Contraseña'
           name="passwordConfirmation" {...register('passwordConfirmation')}
         />
         <p>{errors.passwordConfirmation && 'Debe coincidir con el campo Contraseña'}</p>
       </label>
       <label>
-        Rol:
-        <select name="role" {...register('role')}
+        <select required name="role" {...register('role')}
          onChange={(e) => setValue('role', e.target.value, { shouldValidate: true })}
         >
-          <option value='' selected>--Selecciona--</option>
+          <option value='' selected>--Seleccionar Rol--</option>
           <option value="preceptor">Preceptor</option>
         </select>
         <p>{errors.role && 'Role invalido'}</p>
