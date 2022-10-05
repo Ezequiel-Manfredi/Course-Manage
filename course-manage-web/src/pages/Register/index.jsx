@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { MovileContext } from '../../contexts/MovileContext'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { userSchema } from '../../validators/Schemas'
-import { createApi } from '../../services/apiCall'
+import { userSchema } from '../../validators/userSchema'
+import { apiCall } from '../../services/apiCall'
 import { BAD_REQUEST, CREATED } from '../../utils/constants'
 import './style.css'
 
@@ -17,7 +17,7 @@ export default function Register() {
   })
 
   const submit = (data) => {
-    createApi('/users', 'POST', { ...data, role: 'preceptor' })
+    apiCall('/users', 'POST', { ...data, role: 'preceptor' })
       .then(({ status, body: { errors } }) => {
         if (status === BAD_REQUEST) errors.map((err) => setError(err.field))
         if (status === CREATED) setRegisted(true)

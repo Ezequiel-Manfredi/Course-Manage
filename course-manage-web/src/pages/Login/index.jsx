@@ -4,8 +4,8 @@ import { MovileContext } from '../../contexts/MovileContext'
 import { LoginContext } from '../../contexts/LoginContext'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { loginSchema } from '../../validators/Schemas'
-import { createApi } from '../../services/apiCall'
+import { loginSchema } from '../../validators/userSchema'
+import { apiCall } from '../../services/apiCall'
 import { BAD_REQUEST, OK } from '../../utils/constants'
 import './style.css'
 
@@ -18,7 +18,7 @@ export default function Login() {
   })
 
   const submit = (data) => {
-    createApi('/login', 'POST', { ...data })
+    apiCall('/login', 'POST', { ...data })
       .then(({ status, body }) => {
         if (status === BAD_REQUEST) body.errors.map((err) => setError(err.field))
         if (status === OK) {
