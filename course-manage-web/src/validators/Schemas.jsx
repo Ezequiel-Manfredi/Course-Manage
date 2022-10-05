@@ -7,3 +7,8 @@ export const userSchema = object().shape({
   passwordConfirmation: string().oneOf([ref('password')]),
   role: string().required()
 })
+
+export const loginSchema = object().shape({
+  email: string().email().required(),
+  password: string().required()
+})
