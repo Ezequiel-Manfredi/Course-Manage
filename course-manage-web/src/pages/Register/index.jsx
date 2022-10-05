@@ -51,10 +51,10 @@ export default function Register() {
         <p>{errors.passwordConfirmation && 'Debe coincidir con el campo Contraseña'}</p>
       </label>
       <label>
-        <select required name="role" {...register('role')}
+        <select required name="role" {...register('role')} defaultValue=''
          onChange={(e) => setValue('role', e.target.value, { shouldValidate: true })}
         >
-          <option value='' selected>--Seleccionar Rol--</option>
+          <option value=''>--Seleccionar Rol--</option>
           <option value="preceptor">Preceptor</option>
         </select>
         <p>{errors.role && 'Role invalido'}</p>
