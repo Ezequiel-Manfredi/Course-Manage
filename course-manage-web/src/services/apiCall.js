@@ -1,6 +1,6 @@
 import { API_URL, UNAUTHORIZED } from '../utils/constants'
 
-export const createApi = async (endpoit, method = 'GET', body = {}, login = {}) => {
+export const apiCall = async (endpoit, method = 'GET', body = {}, login = {}) => {
   const options = {
     headers: {
       'Content-Type': 'application/json',
