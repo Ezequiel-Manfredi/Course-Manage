@@ -5,7 +5,7 @@ import { LoginContext } from '../../contexts/LoginContext'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { preceptorSchema } from '../../validators/preceptorSchema'
-import { createApi } from '../../services/apiCall'
+import { apiCall } from '../../services/apiCall'
 import { BAD_REQUEST, CREATED, UNAUTHORIZED } from '../../utils/constants'
 import './style.css'
 
@@ -18,7 +18,7 @@ export default function CreatePreceptor() {
   })
 
   const submit = (data) => {
-    createApi('/preceptors', 'POST', { ...data }, login)
+    apiCall('/preceptors', 'POST', { ...data }, login)
       .then(({ status, body }) => {
         if (status === UNAUTHORIZED) navigator('/login')
         if (status === BAD_REQUEST) body.errors.map((err) => setError(err.field))
