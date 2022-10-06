@@ -7,6 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { preceptorSchema } from '../../validators/preceptorSchema'
 import { createApi } from '../../services/apiCall'
 import { BAD_REQUEST, CREATED, UNAUTHORIZED } from '../../utils/constants'
+import './style.css'
 
 export default function CreatePreceptor() {
   const navigator = useNavigate()
@@ -31,7 +32,7 @@ export default function CreatePreceptor() {
 
   return (
     <form
-      className={`login-form ${isMovile ? 'login-movile' : ''}`}
+      className={`perfil-form ${isMovile ? 'perfil-movile' : ''}`}
       onSubmit={handleSubmit(submit)}
     >
       <h2>Perfil de Preceptor</h2>
