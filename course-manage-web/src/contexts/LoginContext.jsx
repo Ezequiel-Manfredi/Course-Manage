@@ -1,12 +1,12 @@
 import { createContext, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import checkRedirection from '../utils/checkRedirection'
 
 export const LoginContext = createContext()
 
 export const LoginProvider = ({ children }) => {
   const navigator = useNavigate()
   const location = useLocation()
-  const pathExcept = ['/login', '/register']
 
   const getLogin = () => {
     const loginString = localStorage.getItem('loginData')
@@ -27,7 +27,10 @@ export const LoginProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    if (!login && !pathExcept.includes(location.pathname)) navigator('/login')
+    const pathExcept = ['/login', '/register']
+    const pathAllow = ['/courses']
+
+    checkRedirection(login, pathExcept, pathAllow, navigator)
   }, [login, location])
 
   return (
