@@ -1,5 +1,4 @@
-import { useContext, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useContext } from 'react'
 import { MovileContext } from '../../contexts/MovileContext'
 import { LoginContext } from '../../contexts/LoginContext'
 import { useForm } from 'react-hook-form'
@@ -10,9 +9,8 @@ import { BAD_REQUEST, OK } from '../../utils/constants'
 import './style.css'
 
 export default function Login() {
-  const navigator = useNavigate()
   const { isMovile } = useContext(MovileContext)
-  const { saveLogin, getLogin } = useContext(LoginContext)
+  const { saveLogin } = useContext(LoginContext)
   const { register, handleSubmit, formState: { errors }, setError } = useForm({
     resolver: yupResolver(loginSchema)
   })
@@ -26,14 +24,6 @@ export default function Login() {
         }
       })
   }
-
-  useEffect(() => {
-    const loginData = getLogin()
-    if (loginData) {
-      if (!loginData.user.preceptor) navigator('/create-preceptor')
-      else navigator('/courses')
-    }
-  })
 
   return (
     <form
