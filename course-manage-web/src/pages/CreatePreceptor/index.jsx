@@ -23,7 +23,6 @@ export default function CreatePreceptor() {
         if (status === UNAUTHORIZED) navigator('/login')
         if (status === BAD_REQUEST) body.errors.map((err) => setError(err.field))
         if (status === CREATED) {
-          console.log('hola', body)
           saveLogin({ ...login, user: { ...login.user, preceptor: body } })
           navigator('/courses')
         }
