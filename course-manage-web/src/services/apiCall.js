@@ -6,9 +6,10 @@ export const apiCall = async (endpoit, method = 'GET', body = {}, login = {}) =>
       'Content-Type': 'application/json',
       Authorization: `${login.type} ${login.token}`
     },
-    method,
-    body: JSON.stringify(body)
+    method
   }
+  if (body) options.body = JSON.stringify(body)
+
   const response = await fetch(API_URL + endpoit, options)
   if (response.status === UNAUTHORIZED) return { status: UNAUTHORIZED }
   return { status: response.status, body: await response.json() }
