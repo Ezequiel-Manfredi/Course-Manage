@@ -12,7 +12,7 @@ function App() {
     <LoginProvider>
     <MovileContextProvider>
       <Routes>
-        <Route path='/create-preceptor' element={<CreatePreceptor/>} />
+        <Route path='/create-preceptor' element={<CreatePreceptor/>}/>
         <Route path='/register' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='*' element={<NotFound/>}/>
