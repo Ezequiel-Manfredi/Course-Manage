@@ -25,13 +25,16 @@ export default class CrudController {
   ): Promise<void> {
     const { page = DEFAULT_PAGE, size = DEFAULT_SIZE } = await request.validate(PaginationValidator)
 
-    const rows = await this.model
-      .query()
-      .orderBy('id', 'asc')
-      .if(Boolean(callBack), callBack!)
-      .paginate(page, size)
+    let rows: any
+    if (callBack) {
+      rows = await this.model.query().if(Boolean(callBack), callBack!)
 
-    response.ok({ total: rows.total, results: rows.all() })
+      response.ok({ total: rows.length, results: rows })
+    } else {
+      rows = await this.model.query().orderBy('id', 'asc').paginate(page, size)
+
+      response.ok({ total: rows.total, results: rows.all() })
+    }
   }
 
   public async store({ request, response }: HttpContextContract): Promise<any> {
