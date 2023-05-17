@@ -15,7 +15,7 @@ export default class SchoolsController extends CrudController {
     const { search = '' } = validator.data
 
     await super.index(ctx, (query) => {
-      query.whereLike('name', `%${search}%`).orderBy('name', 'desc')
+      query.whereLike('name', `%${search}%`).orderBy('name', 'asc').limit(5)
     })
   }
 }
