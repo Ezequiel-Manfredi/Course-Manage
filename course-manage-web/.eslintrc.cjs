@@ -22,6 +22,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
     indent: [2],
-    'space-before-function-paren': 'off'
+    'space-before-function-paren': 'off',
+    'n/no-callback-literal': 'off'
   }
 }
