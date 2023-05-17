@@ -46,5 +46,12 @@ export const ENDPOINT = Object.freeze({
     MAIN: '/schools',
     SEARCH: function(search) { return `${this.MAIN}?search=${search}` }
     // ID: function(id) { return `${this.MAIN}/${id}` }
+  }),
+  COURSES: Object.freeze({
+    MAIN: '/courses',
+    OF_SCHOOL: function(id, page, size) {
+      return `${this.MAIN}?school=${id}&page=${page}&size=${size}`
+    }
+    // ID: function(id) { return `${this.MAIN}/${id}` }
   })
 })
