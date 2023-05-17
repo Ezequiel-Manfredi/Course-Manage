@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { userSchema } from '../../validators/userSchema'
 import { apiCall } from '../../services/apiCall'
-import { BAD_REQUEST, CREATED } from '../../utils/constants'
+import { RESPONSE, ROUTES } from '../../utils/constants'
 import './style.css'
 
 export default function Register() {
@@ -19,12 +19,12 @@ export default function Register() {
   const submit = (data) => {
     apiCall('/users', 'POST', { ...data, role: 'preceptor' })
       .then(({ status, body: { errors } }) => {
-        if (status === BAD_REQUEST) errors.map((err) => setError(err.field))
-        if (status === CREATED) setRegisted(true)
+        if (status === RESPONSE.BAD_REQUEST) errors.map((err) => setError(err.field))
+        if (status === RESPONSE.CREATED) setRegisted(true)
       })
   }
 
-  if (isRegisted) navigator('/login')
+  if (isRegisted) navigator(ROUTES.LOGIN)
 
   return (
     <form
