@@ -1,14 +1,18 @@
-import { useContext, useRef } from 'react'
-import { MovileContext } from '../../context/MovileContext'
+import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import './style.css'
+import { useUserInfo } from '../../hooks/useUserInfo'
 
 export default function NavigationPanel({ children }) {
-  const { isMovile } = useContext(MovileContext)
+  const { isMovile, user, removeLogin } = useUserInfo()
   const menuElement = useRef()
 
   const toggleMenu = () => {
     menuElement.current.toggleAttribute('hidden')
+  }
+
+  const handleLogout = () => {
+    removeLogin()
   }
 
   return (
@@ -18,7 +22,10 @@ export default function NavigationPanel({ children }) {
         onClick={isMovile ? toggleMenu : null}
         ref={menuElement} hidden={isMovile}
       >
-        <h4>UserName</h4>
+        <div>
+          <h4>{user?.fullName}</h4>
+          <button className='btn-logout' onClick={handleLogout}>Salir</button>
+        </div>
         <ul>
           <li><Link to="/courses">Cursos</Link></li>
           <li><Link to="/students">Estudiantes</Link></li>
