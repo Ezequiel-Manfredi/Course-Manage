@@ -1,7 +1,7 @@
-import { schema, rules, CustomMessages } from '@ioc:Adonis/Core/Validator'
+import { schema, rules, validator, CustomMessages } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
-export default class CourseValidator {
+export class CourseValidator {
   constructor(protected ctx: HttpContextContract) {
     const method = ctx.request.method()
 
@@ -31,5 +31,23 @@ export default class CourseValidator {
     '*': (field, rule) => {
       return `${rule} validation error on ${field}`
     },
+  }
+}
+
+export class QueryCourseValidator {
+  constructor(protected ctx: HttpContextContract) {
+    const parseEntries = Object.entries(ctx.request.qs()).map(([key, value]) => [key, parseInt(value)])
+    this.data = Object.fromEntries(parseEntries)
+  }
+
+  public data: { school?: any; page?: any; size?: any } = {}
+  private schema = schema.create({
+    school: schema.number([rules.exists({ table: 'schools', column: 'id' })]),
+    page: schema.number.optional([rules.unsigned()]),
+    size: schema.number.optional([rules.unsigned()]),
+  })
+
+  public async validate() {
+    await validator.validate({ data: this.data, schema: this.schema })
   }
 }
