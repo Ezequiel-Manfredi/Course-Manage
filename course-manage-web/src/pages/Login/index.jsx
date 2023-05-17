@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { loginSchema } from '../../validators/userSchema'
 import { apiCall } from '../../services/apiCall'
-import { RESPONSE } from '../../utils/constants'
+import { ENDPOINT, METHOD, RESPONSE } from '../../utils/constants'
 import './style.css'
 
 export default function Login() {
@@ -16,7 +16,7 @@ export default function Login() {
   })
 
   const submit = (data) => {
-    apiCall('/login', 'POST', { ...data })
+    apiCall({ endpoit: ENDPOINT.LOGIN, method: METHOD.POST, body: { ...data } })
       .then(({ status, body }) => {
         if (status === RESPONSE.BAD_REQUEST) body.errors.map((err) => setError(err.field))
         if (status === RESPONSE.OK) {

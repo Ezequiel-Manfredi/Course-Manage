@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { preceptorSchema } from '../../validators/preceptorSchema'
 import { apiCall } from '../../services/apiCall'
-import { RESPONSE, ROUTES } from '../../utils/constants'
+import { ENDPOINT, METHOD, RESPONSE, ROUTES } from '../../utils/constants'
 import './style.css'
 
 export default function CreatePreceptor() {
@@ -18,7 +18,7 @@ export default function CreatePreceptor() {
   })
 
   const submit = (data) => {
-    apiCall('/preceptors', 'POST', { ...data }, login)
+    apiCall({ endpoit: ENDPOINT.PRECEPTORS.MAIN, method: METHOD.POST, body: { ...data }, login })
       .then(({ status, body }) => {
         if (status === RESPONSE.UNAUTHORIZED) navigator(ROUTES.LOGIN)
         if (status === RESPONSE.BAD_REQUEST) body.errors.map((err) => setError(err.field))

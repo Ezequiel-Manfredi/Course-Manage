@@ -1,6 +1,6 @@
-import { API_URL, UNAUTHORIZED } from '../utils/constants'
+import { API_URL, METHOD, NULL_VALUE, RESPONSE } from '../utils/constants'
 
-export const apiCall = async (endpoit, method = 'GET', body = {}, login = {}) => {
+export const apiCall = async ({ endpoit, method = METHOD.GET, body = NULL_VALUE, login = {} }) => {
   const options = {
     headers: {
       'Content-Type': 'application/json',
@@ -11,6 +11,6 @@ export const apiCall = async (endpoit, method = 'GET', body = {}, login = {}) =>
   if (body) options.body = JSON.stringify(body)
 
   const response = await fetch(API_URL + endpoit, options)
-  if (response.status === UNAUTHORIZED) return { status: UNAUTHORIZED }
+  if (response.status === RESPONSE.UNAUTHORIZED) return { status: RESPONSE.UNAUTHORIZED }
   return { status: response.status, body: await response.json() }
 }
