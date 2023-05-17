@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { LoginProvider } from './contexts/LoginContext'
 import { MovileContextProvider } from './contexts/MovileContext'
+import Courses from './pages/Courses'
 import CreatePreceptor from './pages/CreatePreceptor'
 import Login from './pages/Login'
 import NotFound from './pages/NotFound'
@@ -12,6 +13,7 @@ function App() {
     <LoginProvider>
     <MovileContextProvider>
       <Routes>
+        <Route path='/courses' element={<Courses/>}/>
         <Route path='/create-preceptor' element={<CreatePreceptor/>}/>
         <Route path='/register' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/>
