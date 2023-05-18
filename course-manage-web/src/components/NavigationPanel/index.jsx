@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 import './style.css'
 import { useUserInfo } from '../../hooks/useUserInfo'
 
@@ -40,7 +40,7 @@ export default function NavigationPanel({ children }) {
         <img src="/assets/bars-menu.svg"/>
       </button>
       <main>
-        {children}
+        <Outlet/>
       </main>
     </section>
   )
