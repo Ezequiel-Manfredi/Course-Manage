@@ -31,6 +31,12 @@ export const ROUTES = Object.freeze({
   LOGIN: '/login',
   COURSES: '/courses'
 })
+export const ROUTES_REGEX = Object.freeze({
+  REGISTER: /^\/register$/,
+  LOGIN: /^\/login$/,
+  COURSES: /^\/courses$/,
+  COURSES_ID: /^\/courses\/\d$/
+})
 export const ENDPOINT = Object.freeze({
   LOGIN: '/login',
   LOGOUT: '/logout',

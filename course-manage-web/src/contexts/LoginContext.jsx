@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import checkRedirection from '../utils/checkRedirection'
-import { ROUTES, STORAGE_KEY } from '../utils/constants'
+import { ROUTES, ROUTES_REGEX, STORAGE_KEY } from '../utils/constants'
 
 export const LoginContext = createContext()
 
@@ -29,8 +29,8 @@ export const LoginProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    const pathExcept = [ROUTES.LOGIN, ROUTES.REGISTER]
-    const pathAllow = [ROUTES.COURSES]
+    const pathExcept = [ROUTES_REGEX.LOGIN, ROUTES_REGEX.REGISTER]
+    const pathAllow = [ROUTES_REGEX.COURSES, ROUTES_REGEX.COURSES_ID]
 
     checkRedirection(login, pathExcept, pathAllow, navigator)
   }, [login, location])

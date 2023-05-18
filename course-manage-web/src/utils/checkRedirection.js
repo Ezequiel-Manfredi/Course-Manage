@@ -1,20 +1,22 @@
+import { NULL_VALUE } from './constants'
+
 export default function checkRedirection(login, pathExcept, pathAllow, navigator) {
   // INTENTAR MEJORAR
   if (login) {
     if (login.user.preceptor) {
-      if (!pathAllow.includes(location.pathname)) {
+      if (!pathAllow.some((regex) => regex.test(location.pathname))) {
         navigator('/courses') // path no permitido
       } else {
-        return undefined // path permitido
+        return NULL_VALUE // path permitido
       }
     } else if (location.pathname !== '/create-preceptor') {
       navigator('/create-preceptor') // path cualquiera
     }
   } else {
-    if (!pathExcept.includes(location.pathname)) {
+    if (!pathExcept.some((regex) => regex.test(location.pathname))) {
       navigator('/login') // path cualquiera exepto
     } else {
-      return undefined // path exepto
+      return NULL_VALUE // path exepto
     }
   }
 }
