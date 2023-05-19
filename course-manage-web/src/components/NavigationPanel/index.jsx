@@ -1,9 +1,9 @@
 import { useRef } from 'react'
 import { Link, Outlet } from 'react-router-dom'
-import './style.css'
 import { useUserInfo } from '../../hooks/useUserInfo'
+import './style.css'
 
-export default function NavigationPanel({ children }) {
+export default function NavigationPanel() {
   const { isMovile, user, removeLogin } = useUserInfo()
   const menuElement = useRef()
 

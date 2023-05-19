@@ -21,7 +21,7 @@ export function SchoolsList({ results }) {
     ) || NULL_VALUE)
   }, [results])
 
-  if (schoolItems === NULL_VALUE) return NULL_VALUE
+  if (!schoolItems) return NULL_VALUE
   return (
     <ul className='schools-modal'>
       {
