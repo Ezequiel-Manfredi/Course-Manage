@@ -8,3 +8,8 @@ export function getCourses(callback, page, size, schoolId, login) {
     login
   }).then(callback)
 }
+
+export function createCourse(callback, body, login) {
+  apiCall({ endpoit: ENDPOINT.COURSES.MAIN, method: METHOD.POST, body, login })
+    .then(callback)
+}

@@ -61,3 +61,8 @@ export const ENDPOINT = Object.freeze({
     // ID: function(id) { return `${this.MAIN}/${id}` }
   })
 })
+export const YEAR_REGEX = /\d{4}/
+export const dateFormat = ({ year = new Date().getFullYear() }) => {
+  console.log(year)
+  return `${year}-01-01`
+}

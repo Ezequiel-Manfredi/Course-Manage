@@ -8,12 +8,15 @@ export const CourseContext = createContext()
 
 export const CourseProvider = ({ children, queryParams }) => {
   const navigator = useNavigate()
+  const [refresh, setRefresh] = useState(false)
   const { login } = useContext(LoginContext)
   const [courses, setCourses] = useState([])
   const [{ page, size }, setPagination] = useState({
     page: queryParams.get('page') || COURSE.INITIAL_PAGE,
     size: queryParams.get('size') || COURSE.INITIAL_SIZE
   })
+
+  const reloadCourses = () => setRefresh(!refresh)
 
   const changePagination = (page, size) => {
     setPagination({ page, size })
@@ -43,7 +46,7 @@ export const CourseProvider = ({ children, queryParams }) => {
       if (status === RESPONSE.UNAUTHORIZED) navigator(ROUTES.LOGIN)
       if (status === RESPONSE.OK) setCourses(results)
     }, page, size, school.id, login)
-  }, [page, size, school])
+  }, [page, size, school, refresh])
 
   return (
     <CourseContext.Provider value={{
@@ -51,7 +54,8 @@ export const CourseProvider = ({ children, queryParams }) => {
       changePagination,
       school,
       saveSchool,
-      removeSchool
+      removeSchool,
+      reloadCourses
     }}>
       {children}
     </CourseContext.Provider>
