@@ -63,6 +63,5 @@ export const ENDPOINT = Object.freeze({
 })
 export const YEAR_REGEX = /\d{4}/
 export const dateFormat = ({ year = new Date().getFullYear() }) => {
-  console.log(year)
   return `${year}-01-01`
 }

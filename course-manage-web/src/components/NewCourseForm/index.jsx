@@ -18,7 +18,6 @@ export default function NewCourseForm() {
   } = useForm({ resolver: yupResolver(courseSchema) })
 
   const submit = ({ year, ...data }) => {
-    console.log(year)
     const body = {
       ...data,
       createdAt: dateFormat({ year })
@@ -35,7 +34,6 @@ export default function NewCourseForm() {
 
   const handleClick = () => sethiddenModal(!hiddenModal)
 
-  console.log(errors.createdAt)
   return (
     <>
       <button onClick={handleClick}>Nuevo Curso</button>
