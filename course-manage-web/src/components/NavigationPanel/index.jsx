@@ -23,8 +23,8 @@ export default function NavigationPanel() {
         ref={menuElement} hidden={isMovile}
       >
         <div>
-          <h4>{user?.fullName}</h4>
-          <button className='btn-logout' onClick={handleLogout}>Salir</button>
+          <h2>{user?.fullName}</h2>
+          <button onClick={handleLogout}>Salir</button>
         </div>
         <ul>
           <li><Link to="/courses">Cursos</Link></li>
@@ -33,13 +33,12 @@ export default function NavigationPanel() {
         </ul>
       </nav>
       <button
-        className='menu-btn'
         onClick={toggleMenu}
         hidden={!isMovile}
       >
         <img src="/assets/bars-menu.svg"/>
       </button>
-      <main>
+      <main className={`${isMovile ? 'main-movile' : ''}`}>
         <Outlet/>
       </main>
     </section>

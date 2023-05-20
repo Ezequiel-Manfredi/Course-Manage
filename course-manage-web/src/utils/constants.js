@@ -1,6 +1,6 @@
 export const API_URL = 'http://localhost:3333'
 export const MINIMUM_PASSWORD_LENGTH = 8
-export const MOVILE_SIZE = 800
+export const MOVILE_SIZE = 900
 export const DEFAULT_DELAY = 500
 export const MINIMUM_SEARCH_LENGTH = 3
 export const EMPTY = ''
