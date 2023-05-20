@@ -29,6 +29,7 @@
 
     &[hidden] {
       transform: translate(-100%);
+      box-shadow: none;
     }
     
     &.menu-movile {
