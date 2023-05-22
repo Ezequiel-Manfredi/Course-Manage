@@ -1,4 +1,4 @@
-export const API_URL = 'http://localhost:3333'
+export const API_URL = 'http://192.168.0.8:3333'
 export const MINIMUM_PASSWORD_LENGTH = 8
 export const MOVILE_SIZE = 900
 export const DEFAULT_DELAY = 500
@@ -35,7 +35,7 @@ export const ROUTES_REGEX = Object.freeze({
   REGISTER: /^\/register$/,
   LOGIN: /^\/login$/,
   COURSES: /^\/courses$/,
-  COURSES_ID: /^\/courses\/\d$/
+  COURSES_ID: /^\/courses\/\d+$/
 })
 export const ENDPOINT = Object.freeze({
   LOGIN: '/login',
@@ -62,6 +62,7 @@ export const ENDPOINT = Object.freeze({
   })
 })
 export const YEAR_REGEX = /\d{4}/
-export const dateFormat = ({ year = new Date().getFullYear() }) => {
+export const dateFormat = ({ year }) => {
+  year ||= new Date().getFullYear()
   return `${year}-01-01`
 }
