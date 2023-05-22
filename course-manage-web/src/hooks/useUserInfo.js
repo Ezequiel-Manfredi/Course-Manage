@@ -4,8 +4,8 @@ import { LoginContext } from '../contexts/LoginContext'
 
 export function useUserInfo() {
   const { isMovile } = useContext(MovileContext)
-  const { getLogin, removeLogin } = useContext(LoginContext)
+  const { getLogin, login, removeLogin } = useContext(LoginContext)
   const user = getLogin()?.user.preceptor
 
-  return { isMovile, user, removeLogin }
+  return { isMovile, user, login, removeLogin }
 }
