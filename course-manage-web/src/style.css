@@ -5,3 +5,9 @@
   list-style: none;
   text-decoration: none;
 }
+
+:root {
+  --bg-color: #fff;
+  --bg-contrast: #000;
+  --limit-sections: #ddd;
+}

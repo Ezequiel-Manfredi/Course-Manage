@@ -1,9 +1,3 @@
-:root {
-  --bg-color: #fff;
-  --bg-contrast: #000;
-  --limit-sections: #ddd;
-}
-
 .container {
   width: 100vw;
   height: 100vh;
@@ -53,7 +47,7 @@
       > button {
         background-color: var(--bg-color);
         outline: none;
-        border: none;
+        border: 1px solid var(--limit-sections);
         margin-top: 1rem;
         font-size: 1.3rem;
         padding: 0.5rem;
@@ -61,6 +55,10 @@
         box-shadow: -4px 4px 5px 1.5px var(--limit-sections);
   
         &:hover {
+          box-shadow: none;
+        }
+
+        &:active {
           box-shadow: inset -4px 4px 6px 1.5px var(--limit-sections);
         }
       }
@@ -85,6 +83,10 @@
           color: var(--bg-contrast);
       
           &:hover {
+            outline: 1px solid var(--limit-sections);
+          }
+
+          &:active {
             box-shadow: inset -4px 4px 6px 1.5px var(--limit-sections);
           }
         }
@@ -119,8 +121,9 @@
   }
 
   > main {
+    position: relative;
     width: 80vw;
-    padding: 5vh 5vw;
+    padding: 0 5vw;
     height: 100vh;
     overflow-x: hidden;
     overflow-y: scroll;
