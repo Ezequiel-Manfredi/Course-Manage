@@ -12,7 +12,7 @@ export function CoursesByYear({ year, courses }) {
   return (
     <li>
       <h3>Año: {year}</h3>
-      <ul>
+      <ul className='year-container'>
         {courses}
       </ul>
     </li>
