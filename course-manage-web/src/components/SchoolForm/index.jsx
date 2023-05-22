@@ -27,7 +27,6 @@ export function SchoolForm() {
         value={schoolSearch}
         placeholder='Selecciona tu escuela'
       />
-      <button>Buscar</button>
       <SchoolsList results={schools}/>
     </form>
   )

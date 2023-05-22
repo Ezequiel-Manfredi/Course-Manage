@@ -27,7 +27,7 @@ export function SchoolsList({ results }) {
       {
       schoolItems?.length !== EMPTY_ARRAY
         ? schoolItems
-        : <li>no se encontraron resultados</li>
+        : <li>No se encontraron resultados.</li>
       }
     </ul>
   )

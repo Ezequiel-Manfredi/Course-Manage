@@ -1,7 +1,55 @@
-.school-form {
+form.school-form {
   position: relative;
+  min-height: 4.6rem;
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+  border-bottom: 2px solid var(--limit-sections);
+
+  & > input {
+    font-size: 16px;
+    text-align: center;
+    min-height: 100%;
+    width: 15rem;
+    padding: .5rem 1rem;
+    border: none;
+    outline: 1px solid var(--limit-sections);
+    border-radius: 50px;
+
+    &:focus {
+      border: none;
+      outline: none;
+      box-shadow: inset -2px 3px 5px 3px var(--limit-sections);
+    }
+  }
+
+  &:focus-within > ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+  }
 }
 
 .schools-modal {
+  display: none;
   position: absolute;
+  top: 78.20%;
+  background-color: var(--bg-color);
+  width: 13rem;
+  min-height: 100px;
+  border: 1px solid var(--limit-sections);
+  border-top: none;
+  padding: .5rem 0 0 0;
+
+  & button {
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--limit-sections);
+    background: var(--bg-color);
+    padding: .5rem 0 .5rem 0;
+
+    &:hover {
+      scale: 1.1;
+    }
+  }
 }
