@@ -1,5 +1,6 @@
 import { schema, rules, validator, CustomMessages } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { DATE_FORMAT } from 'App/Utils/constants'
 
 export class CourseValidator {
   constructor(protected ctx: HttpContextContract) {
@@ -14,12 +15,14 @@ export class CourseValidator {
     name: schema.string(),
     preceptorId: schema.number([rules.exists({ table: 'preceptors', column: 'id' })]),
     schoolId: schema.number([rules.exists({ table: 'schools', column: 'id' })]),
+    createdAt: schema.date.optional({ format: DATE_FORMAT }),
   })
 
   public modify = schema.create({
     name: schema.string.optional(),
     preceptorId: schema.number.optional([rules.exists({ table: 'preceptors', column: 'id' })]),
     schoolId: schema.number.optional([rules.exists({ table: 'schools', column: 'id' })]),
+    createdAt: schema.date.optional({ format: DATE_FORMAT }),
   })
 
   private options = {
